@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOHTRSHOP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="header">
+<div class="header-inner">
+<a href="#" class="logo" data-filter="all">BOHTRSHOP<span class="logo-dot">.</span></a>
+<nav class="nav">
+<a href="#catalog" data-filter="all" class="active">Все</a>
+<a href="#catalog" data-filter="phone">Телефоны</a>
+<a href="#catalog" data-filter="laptop">Ноутбуки</a>
+<a href="#catalog" data-filter="headphones">Наушники</a>
+<a href="#catalog" data-filter="accessory">Аксессуары</a>
+</nav>
+<div class="header-actions">
+<button class="icon-btn" id="supportBtn" aria-label="Поддержка">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+<button class="cart-btn" id="cartButton" aria-label="Корзина">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+<span id="cart-count">0</span>
+</button>
+</div>
+</div>
+</header>
+<main>
+<section class="hero">
+<div class="hero-left">
+<span class="hero-tag">Новинки 2025</span>
+<h1>Техника,<br>которая<br><span class="accent">взрывает</span></h1>
+<p>Флагманы, ноутбуки и аксессуары. Оригинал, гарантия, доставка за 1 день.</p>
+<button class="btn-primary" data-filter="all">В каталог →</button>
+</div>
+<div class="hero-right">
+<div class="hero-card hero-card--1"><img src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&q=80" alt=""><span>iPhone 15 Pro</span></div>
+<div class="hero-card hero-card--2"><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=600&q=80" alt=""><span>MacBook Air</span></div>
+<div class="hero-card hero-card--3"><img src="https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=600&q=80" alt=""><span>AirPods Pro</span></div>
+</div>
+</section>
+<section class="catalog" id="catalog">
+<div class="catalog-head">
+<h2 id="catalogTitle">Все товары</h2>
+<span class="catalog-count" id="catalogCount"></span>
+</div>
+<div class="products-grid" id="productsGrid"></div>
+</section>
+<section class="cta">
+<div class="cta-inner">
+<h2>Хочешь такой же сайт<br>со своим названием?</h2>
+<p>Напиши в Telegram — сделаю под тебя: дизайн, каталог, корзину, админку.</p>
+<a href="https://t.me/ooemw" target="_blank" class="btn-primary">@ooemw →</a>
+</div>
+</section>
+</main>
+<footer class="footer">
+<div class="footer-inner">
+<span class="logo">BOHTRSHOP<span class="logo-dot">.</span></span>
+<span>© 2025. Все права защищены.</span>
+</div>
+</footer>
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="cartDrawer">
+<div class="drawer-head">
+<h2>Корзина</h2>
+<button class="icon-btn" data-close="cart" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+</div>
+<div class="drawer-body" id="cartItems"></div>
+<div class="drawer-foot" id="cartFoot" style="display:none;">
+<div class="drawer-total"><span>Итого</span><strong id="cartTotal">0 ₽</strong></div>
+<button class="btn-primary full" id="checkoutBtn">Оформить заказ</button>
+</div>
+</aside>
+<aside class="drawer" id="supportDrawer">
+<div class="drawer-head">
+<h2>Поддержка</h2>
+<button class="icon-btn" data-close="support" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+</div>
+<div class="drawer-body" id="supportBody"></div>
+<div class="drawer-foot support-foot">
+<p>Не нашли ответ?</p>
+<a href="https://t.me/ooemw" target="_blank" class="btn-primary full">@ooemw →</a>
+</div>
+</aside>
+<aside class="drawer drawer-admin" id="adminDrawer">
+<div class="drawer-head">
+<h2>Админка</h2>
+<button class="icon-btn" data-close="admin" aria-label="Закрыть"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+</div>
+<div class="admin-tabs">
+<button class="admin-tab active" data-tab="add">Товар</button>
+<button class="admin-tab" data-tab="manage">Управление</button>
+<button class="admin-tab" data-tab="faq">Ответы</button>
+</div>
+<div class="drawer-body">
+<div class="admin-pane" id="pane-add">
+<label>Название<input type="text" id="pTitle" placeholder="iPhone 16 Pro"></label>
+<label>Описание<textarea id="pDesc" rows="2" placeholder="6.9, 256 ГБ"></textarea></label>
+<div class="row2">
+<label>Цена<input type="number" id="pPrice" placeholder="99990"></label>
+<label>Категория<select id="pCategory">
+<option value="phone">Телефоны</option>
+<option value="laptop">Ноутбуки</option>
+<option value="headphones">Наушники</option>
+<option value="accessory">Аксессуары</option>
+</select></label>
+</div>
+<label>Ссылка на фото<input type="text" id="pImgUrl" placeholder="https://..."></label>
+<label class="file-label">Или загрузите<input type="file" id="pImgFile" accept="image/*" hidden><span>Выбрать файл</span></label>
+<img id="pPreview" class="preview" style="display:none;">
+<button class="btn-primary full" id="addProductBtn">Добавить</button>
+<p class="hint" id="addHint"></p>
+</div>
+<div class="admin-pane" id="pane-manage" style="display:none;">
+<div id="manageList" class="manage-list"></div>
+<button class="btn-ghost danger" id="resetProducts">Удалить все мои товары</button>
+</div>
+<div class="admin-pane" id="pane-faq" style="display:none;">
+<label>Вопрос<input type="text" id="fQ" placeholder="Как оформить заказ?"></label>
+<label>Ответ<textarea id="fA" rows="3" placeholder="Ответ..."></textarea></label>
+<button class="btn-primary full" id="addFaqBtn">Добавить ответ</button>
+<p class="hint" id="faqHint"></p>
+<div id="faqList" class="manage-list"></div>
+<button class="btn-ghost danger" id="resetFaqs">Удалить все мои ответы</button>
+</div>
+</div>
+</aside>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+const DEFAULT_PRODUCTS=[
+{id:1,title:'iPhone 15 Pro Max',desc:'6.7" Super Retina, A17 Pro, 256 ГБ',price:129990,category:'phone',img:'https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=400&q=80'},
+{id:2,title:'Samsung Galaxy S24 Ultra',desc:'6.8" AMOLED, 200 МП, 512 ГБ',price:119990,category:'phone',img:'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?w=400&q=80'},
+{id:3,title:'Google Pixel 8 Pro',desc:'6.7" OLED, 50 МП, 128 ГБ',price:79990,category:'phone',img:'https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=400&q=80'},
+{id:4,title:'MacBook Air M3',desc:'13.6" Liquid Retina, M3, 8/256',price:139990,category:'laptop',img:'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=400&q=80'},
+{id:5,title:'MacBook Pro 14"',desc:'M3 Pro, 18 ГБ, 512 ГБ SSD',price:219990,category:'laptop',img:'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=400&q=80'},
+{id:6,title:'ASUS Zenbook 14',desc:'OLED, Intel Core Ultra 7, 16 ГБ',price:99990,category:'laptop',img:'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&q=80'},
+{id:7,title:'AirPods Pro 2',desc:'Активное шумоподавление, USB-C',price:24990,category:'headphones',img:'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?w=400&q=80'},
+{id:8,title:'Sony WH-1000XM5',desc:'Беспроводные, шумоподавление',price:34990,category:'headphones',img:'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400&q=80'},
+{id:9,title:'Bose QuietComfort',desc:'Накладные, 24 ч работы',price:29990,category:'headphones',img:'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&q=80'},
+{id:10,title:'iPad Pro 11"',desc:'M4, 256 ГБ, Wi-Fi',price:89990,category:'accessory',img:'https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=400&q=80'},
+{id:11,title:'Apple Watch Ultra 2',desc:'49 мм, титан, GPS + Cellular',price:79990,category:'accessory',img:'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?w=400&q=80'},
+{id:12,title:'MagSafe Charger',desc:'Беспроводная зарядка 15 Вт',price:4990,category:'accessory',img:'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=400&q=80'}
+];
+const DEFAULT_FAQS=[
+{id:1,q:'Как оформить заказ?',a:'Добавьте товар в корзину, нажмите «Оформить заказ» — и мы свяжемся с вами.'},
+{id:2,q:'Сколько идёт доставка?',a:'По городу — 1–2 дня, по России — 3–7 дней.'},
+{id:3,q:'Есть ли гарантия?',a:'Да, официальная гарантия 12 месяцев на всю технику.'}
+];
+let cart=[],customProducts=[],customFaqs=[];
+let currentFilter='all';
+let uploadedImageData=null;
+const $=s=>document.querySelector(s);
+const $$=s=>document.querySelectorAll(s);
+const productsGrid=$('#productsGrid');
+const cartCountEl=$('#cart-count');
+const cartItems=$('#cartItems');
+const cartTotal=$('#cartTotal');
+const cartFoot=$('#cartFoot');
+const catalogTitle=$('#catalogTitle');
+const catalogCount=$('#catalogCount');
+const overlay=$('#overlay');
+const toast=$('#toast');
+const CATEGORY_NAMES={all:'Все товары',phone:'Телефоны',laptop:'Ноутбуки',headphones:'Наушники',accessory:'Аксессуары'};
+function loadState(){
+try{customProducts=JSON.parse(localStorage.getItem('bhProducts')||'[]')}catch(e){customProducts=[]}
+try{customFaqs=JSON.parse(localStorage.getItem('bhFaqs')||'[]')}catch(e){customFaqs=[]}
+try{cart=JSON.parse(localStorage.getItem('bhCart')||'[]')}catch(e){cart=[]}
+}
+function saveState(){
+localStorage.setItem('bhProducts',JSON.stringify(customProducts));
+localStorage.setItem('bhFaqs',JSON.stringify(customFaqs));
+localStorage.setItem('bhCart',JSON.stringify(cart));
+}
+function allProducts(){return[...customProducts,...DEFAULT_PRODUCTS]}
+function allFaqs(){return[...customFaqs,...DEFAULT_FAQS]}
+function cartTotalSum(){return cart.reduce((s,i)=>s+i.price*i.quantity,0)}
+function cartCount(){return cart.reduce((s,i)=>s+i.quantity,0)}
+function showToast(msg){
+toast.textContent=msg;
+toast.classList.add('show');
+clearTimeout(toast._t);
+toast._t=setTimeout(()=>toast.classList.remove('show'),2200);
+}
+function openDrawer(id){
+document.getElementById(id).classList.add('open');
+overlay.classList.add('active');
+}
+function closeAllDrawers(){
+$$('.drawer').forEach(d=>d.classList.remove('open'));
+overlay.classList.remove('active');
+}
+function renderProducts(){
+const list=currentFilter==='all'?allProducts():allProducts().filter(p=>p.category===currentFilter);
+catalogTitle.textContent=CATEGORY_NAMES[currentFilter];
+catalogCount.textContent=list.length+' шт.';
+if(!list.length){productsGrid.innerHTML='<div class="empty" style="grid-column:1/-1">Товаров пока нет</div>';return}
+productsGrid.innerHTML=list.map(p=>`
+<div class="product-card">
+<div class="product-img"><img src="${p.img}" alt="${p.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x400/17171a/8e8e93?text=No+Image'"></div>
+<div class="product-body">
+<div class="product-title">${p.title}</div>
+<div class="product-desc">${p.desc}</div>
+<div class="product-foot">
+<span class="product-price">${p.price.toLocaleString()} ₽</span>
+<button class="add-btn" data-id="${p.id}" aria-label="В корзину">+</button>
+</div>
+</div>
+</div>`).join('');
+}
+function renderCart(){
+cartCountEl.textContent=cartCount();
+if(!cart.length){
+cartItems.innerHTML='<div class="empty">Корзина пуста</div>';
+cartFoot.style.display='none';
+return;
+}
+cartItems.innerHTML=cart.map(i=>`
+<div class="cart-item">
+<div class="cart-item-info">
+<div class="cart-item-title">${i.title}</div>
+<div class="cart-item-price">${i.price.toLocaleString()} ₽</div>
+</div>
+<div class="qty">
+<button data-act="dec" data-id="${i.id}">−</button>
+<span>${i.quantity}</span>
+<button data-act="inc" data-id="${i.id}">+</button>
+</div>
+</div>`).join('');
+cartTotal.textContent=cartTotalSum().toLocaleString()+' ₽';
+cartFoot.style.display='block';
+}
+function renderSupport(){
+const list=allFaqs();
+const body=document.getElementById('supportBody');
+if(!list.length){body.innerHTML='<div class="empty">Пока нет ответов</div>';return}
+body.innerHTML=list.map(f=>`
+<div class="faq-item">
+<button class="faq-q"><span>${f.q}</span><i>▾</i></button>
+<div class="faq-a"><p>${f.a}</p></div>
+</div>`).join('');
+body.querySelectorAll('.faq-q').forEach(b=>{
+b.addEventListener('click',()=>b.parentElement.classList.toggle('open'));
+});
+}
+function renderManage(){
+const list=document.getElementById('manageList');
+if(!customProducts.length){list.innerHTML='<div class="empty">Вы ещё не добавляли товары</div>';return}
+list.innerHTML=customProducts.map(p=>`
+<div class="manage-item">
+<img src="${p.img}" onerror="this.src='https://via.placeholder.com/60/17171a/8e8e93?text=?'">
+<div class="manage-info">
+<div class="manage-title">${p.title}</div>
+<div class="manage-sub">${p.price.toLocaleString()} ₽ · ${CATEGORY_NAMES[p.category]}</div>
+</div>
+<button class="manage-del" data-id="${p.id}">✕</button>
+</div>`).join('');
+list.querySelectorAll('.manage-del').forEach(b=>{
+b.addEventListener('click',()=>{
+const id=Number(b.dataset.id);
+customProducts=customProducts.filter(x=>x.id!==id);
+saveState();renderProducts();renderManage();
+});
+});
+}
+function renderFaqList(){
+const list=document.getElementById('faqList');
+if(!customFaqs.length){list.innerHTML='<div class="empty">Вы ещё не добавляли ответы</div>';return}
+list.innerHTML=customFaqs.map(f=>`
+<div class="manage-item">
+<div class="manage-info">
+<div class="manage-title">${f.q}</div>
+<div class="manage-sub">${f.a}</div>
+</div>
+<button class="manage-del" data-id="${f.id}">✕</button>
+</div>`).join('');
+list.querySelectorAll('.manage-del').forEach(b=>{
+b.addEventListener('click',()=>{
+const id=Number(b.dataset.id);
+customFaqs=customFaqs.filter(x=>x.id!==id);
+saveState();renderFaqList();
+});
+});
+}
+function addToCart(id,btn){
+const p=allProducts().find(x=>x.id===id);
+if(!p)return;
+const ex=cart.find(i=>i.id===id);
+if(ex)ex.quantity++;
+else cart.push({id:p.id,title:p.title,price:p.price,quantity:1});
+saveState();renderCart();
+if(btn){
+btn.classList.add('added');btn.textContent='✓';
+setTimeout(()=>{btn.classList.remove('added');btn.textContent='+';},1000);
+}
+}
+function setFilter(f){
+currentFilter=f;
+$$('.nav a').forEach(a=>a.classList.toggle('active',a.dataset.filter===f));
+renderProducts();
+document.getElementById('catalog').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function addProduct(){
+const title=document.getElementById('pTitle').value.trim();
+const desc=document.getElementById('pDesc').value.trim();
+const price=Number(document.getElementById('pPrice').value);
+const category=document.getElementById('pCategory').value;
+let img=document.getElementById('pImgUrl').value.trim();
+const hint=document.getElementById('addHint');
+if(!title||!price||price<=0){hint.style.color='#ff5c5c';hint.textContent='Заполните название и цену';return}
+if(uploadedImageData)img=uploadedImageData;
+if(!img)img='https://via.placeholder.com/400x400/17171a/8e8e93?text=No+Image';
+customProducts.unshift({id:Date.now(),title,desc:desc||'Без описания',price,category,img});
+saveState();renderProducts();renderManage();
+document.getElementById('pTitle').value='';
+document.getElementById('pDesc').value='';
+document.getElementById('pPrice').value='';
+document.getElementById('pImgUrl').value='';
+document.getElementById('pImgFile').value='';
+document.getElementById('pPreview').style.display='none';
+uploadedImageData=null;
+hint.style.color='#c6ff3d';hint.textContent='✓ Товар добавлен';
+setTimeout(()=>hint.textContent='',2500);
+}
+function addFaq(){
+const q=document.getElementById('fQ').value.trim();
+const a=document.getElementById('fA').value.trim();
+const hint=document.getElementById('faqHint');
+if(!q||!a){hint.style.color='#ff5c5c';hint.textContent='Заполните вопрос и ответ';return}
+customFaqs.unshift({id:Date.now(),q,a});
+saveState();renderFaqList();
+document.getElementById('fQ').value='';
+document.getElementById('fA').value='';
+hint.style.color='#c6ff3d';hint.textContent='✓ Ответ добавлен';
+setTimeout(()=>hint.textContent='',2500);
+}
+function init(){
+loadState();
+renderProducts();renderCart();renderManage();renderFaqList();
+$$('[data-filter]').forEach(el=>{
+el.addEventListener('click',e=>{e.preventDefault();setFilter(el.dataset.filter)});
+});
+productsGrid.addEventListener('click',e=>{
+const b=e.target.closest('.add-btn');
+if(b)addToCart(Number(b.dataset.id),b);
+});
+cartItems.addEventListener('click',e=>{
+const b=e.target.closest('button[data-act]');
+if(!b)return;
+const id=Number(b.dataset.id);
+const item=cart.find(i=>i.id===id);
+if(!item)return;
+if(b.dataset.act==='inc')item.quantity++;
+else item.quantity--;
+if(item.quantity<=0)cart=cart.filter(i=>i.id!==id);
+saveState();renderCart();
+});
+document.getElementById('cartButton').addEventListener('click',()=>{renderCart();openDrawer('cartDrawer')});
+document.getElementById('supportBtn').addEventListener('click',()=>{renderSupport();openDrawer('supportDrawer')});
+overlay.addEventListener('click',closeAllDrawers);
+$$('[data-close]').forEach(b=>b.addEventListener('click',closeAllDrawers));
+document.getElementById('checkoutBtn').addEventListener('click',()=>{
+if(!cart.length)return;
+showToast('Заказ оформлен! Сумма: '+cartTotalSum().toLocaleString()+' ₽');
+cart=[];saveState();renderCart();closeAllDrawers();
+});
+document.addEventListener('keydown',e=>{
+if(e.ctrlKey&&e.key==='6'){e.preventDefault();openDrawer('adminDrawer')}
+if(e.key==='Escape')closeAllDrawers();
+});
+$$('.admin-tab').forEach(t=>{
+t.addEventListener('click',()=>{
+$$('.admin-tab').forEach(x=>x.classList.remove('active'));
+t.classList.add('active');
+['add','manage','faq'].forEach(n=>{
+document.getElementById('pane-'+n).style.display=t.dataset.tab===n?'flex':'none';
+});
+});
+});
+const fileInput=document.getElementById('pImgFile');
+fileInput.addEventListener('change',e=>{
+const f=e.target.files[0];
+if(!f)return;
+const r=new FileReader();
+r.onload=ev=>{
+uploadedImageData=ev.target.result;
+const p=document.getElementById('pPreview');
+p.src=uploadedImageData;p.style.display='block';
+};
+r.readAsDataURL(f);
+});
+document.getElementById('pImgUrl').addEventListener('input',e=>{
+const v=e.target.value.trim();
+if(v){uploadedImageData=null;const p=document.getElementById('pPreview');p.src=v;p.style.display='block'}
+});
+document.getElementById('addProductBtn').addEventListener('click',addProduct);
+document.getElementById('addFaqBtn').addEventListener('click',addFaq);
+document.getElementById('resetProducts').addEventListener('click',()=>{
+if(!confirm('Удалить все добавленные товары?'))return;
+customProducts=[];saveState();renderProducts();renderManage();
+});
+document.getElementById('resetFaqs').addEventListener('click',()=>{
+if(!confirm('Удалить все добавленные ответы?'))return;
+customFaqs=[];saveState();renderFaqList();
+});
+}
+init();
+})();
+</script>
+</body>
+</html>
